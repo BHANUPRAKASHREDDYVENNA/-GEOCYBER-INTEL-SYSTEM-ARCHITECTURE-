@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  geocyber-db:
+    image: postgres:16-alpine
+    container_name: geocyber-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: geocyberdb
+      POSTGRES_USER: geocyber_user
+      POSTGRES_PASSWORD: geocyber_secure_password_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - geocyber_pgdata:/var/lib/postgresql/data
+      - ./src/main/resources/schema-postgresql.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U geocyber_user -d geocyberdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  geocyber-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: geocyber-app
+    restart: unless-stopped
+    depends_on:
+      geocyber-db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://geocyber-db:5432/geocyberdb
+      SPRING_DATASOURCE_DRIVER: org.postgresql.Driver
+      SPRING_DATASOURCE_USERNAME: geocyber_user
+      SPRING_DATASOURCE_PASSWORD: geocyber_secure_password_2026
+      SPRING_JPA_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      JWT_SECRET: GeoCyberIntelSuperSecureProductionKeyLength256BitOrGreaterForGeopoliticalCyberAttributionPlatform2026
+      VAADIN_PRODUCTION_MODE: "true"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  geocyber_pgdata:
+    driver: local

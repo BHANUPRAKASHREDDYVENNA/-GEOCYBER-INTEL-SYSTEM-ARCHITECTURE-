@@ -1,0 +1,121 @@
+[
+  {
+    "incidentId": "INC-2026-UA-001",
+    "campaignName": "Operation Ghostwriter",
+    "groundTruthActor": "APT28",
+    "groundTruthSponsor": "RU",
+    "targetCountry": "UA",
+    "targetSector": "Defense / Military Communications",
+    "incidentDate": "2026-03-14",
+    "observedTtps": [
+      "T1566.001",
+      "T1059.001",
+      "T1027",
+      "T1071.001",
+      "T1003.001"
+    ],
+    "observedIocs": [
+      "185.175.56.24",
+      "update-defense[.]org",
+      "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "CVE-2024-21413"
+    ],
+    "geopoliticalContext": "Escalated border hostilities and NATO troop repositioning along eastern corridor. GDELT conflict code 190. Average tone -7.8.",
+    "gdeltConflictIndex": 0.88,
+    "activeWorkHourAlignment": "MSK_UTC_PLUS_3"
+  },
+  {
+    "incidentId": "INC-2026-GU-002",
+    "campaignName": "Guam Critical Infrastructure Infiltration",
+    "groundTruthActor": "Volt Typhoon",
+    "groundTruthSponsor": "CN",
+    "targetCountry": "GU",
+    "targetSector": "Maritime Logistics & Water Utilities",
+    "incidentDate": "2026-04-02",
+    "observedTtps": [
+      "T1078",
+      "T1190",
+      "T1059.003",
+      "T1082",
+      "T1071.001"
+    ],
+    "observedIocs": [
+      "45.154.255.89",
+      "cisco-telemetry[.]net",
+      "CVE-2023-4966"
+    ],
+    "geopoliticalContext": "Simulated naval blockades and maritime standoff in Philippine Sea and Taiwan Strait. GDELT bilateral tension index 0.94.",
+    "gdeltConflictIndex": 0.94,
+    "activeWorkHourAlignment": "CST_UTC_PLUS_8"
+  },
+  {
+    "incidentId": "INC-2026-UA-003",
+    "campaignName": "HermeticWiper Substation Assault",
+    "groundTruthActor": "Sandworm",
+    "groundTruthSponsor": "RU",
+    "targetCountry": "UA",
+    "targetSector": "Energy / Electricity Transmission",
+    "incidentDate": "2026-02-18",
+    "observedTtps": [
+      "T1486",
+      "T1562.001",
+      "T1055",
+      "T1059.003"
+    ],
+    "observedIocs": [
+      "194.26.29.112",
+      "industroyer2.exe",
+      "caddywiper.exe"
+    ],
+    "geopoliticalContext": "Targeted thermal power plant missile impacts and diplomatic breakdown. CAMEO 193.",
+    "gdeltConflictIndex": 0.96,
+    "activeWorkHourAlignment": "MSK_UTC_PLUS_3"
+  },
+  {
+    "incidentId": "INC-2026-KR-004",
+    "campaignName": "Operation Dream Job Crypto Heist",
+    "groundTruthActor": "Lazarus Group",
+    "groundTruthSponsor": "KP",
+    "targetCountry": "KR",
+    "targetSector": "Financial / Cryptocurrency DeFi",
+    "incidentDate": "2026-01-22",
+    "observedTtps": [
+      "T1566.002",
+      "T1059.001",
+      "T1486",
+      "T1027",
+      "T1071.001"
+    ],
+    "observedIocs": [
+      "175.45.176.8",
+      "manuscrypt.dll",
+      "ronin-bridge-exploit"
+    ],
+    "geopoliticalContext": "UN sanctions reinforcement and ballistic missile posturing. Bilateral tension index 0.85.",
+    "gdeltConflictIndex": 0.85,
+    "activeWorkHourAlignment": "KST_UTC_PLUS_9"
+  },
+  {
+    "incidentId": "INC-2026-DE-005",
+    "campaignName": "SolarWinds Successor Cloud Exfil",
+    "groundTruthActor": "APT29",
+    "groundTruthSponsor": "RU",
+    "targetCountry": "DE",
+    "targetSector": "Government / Foreign Affairs",
+    "incidentDate": "2026-05-11",
+    "observedTtps": [
+      "T1190",
+      "T1078",
+      "T1059.001",
+      "T1071.001",
+      "T1082"
+    ],
+    "observedIocs": [
+      "13.59.205.66",
+      "ms-graph-sync[.]org"
+    ],
+    "geopoliticalContext": "European Union security conference formulating long-term export controls and sanctions.",
+    "gdeltConflictIndex": 0.72,
+    "activeWorkHourAlignment": "MSK_UTC_PLUS_3"
+  }
+]
