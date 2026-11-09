@@ -30,6 +30,7 @@ public class SecurityConfig extends VaadinWebSecurity {
                 .requestMatchers("/api/**").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/login/**").permitAll()
         );
 
         http.csrf(csrf -> csrf.ignoringRequestMatchers("/api/**", "/h2-console/**"));
