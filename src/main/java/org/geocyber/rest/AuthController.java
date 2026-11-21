@@ -1,5 +1,7 @@
 package org.geocyber.rest;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.geocyber.security.JwtTokenProvider;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication & Authorization", description = "JWT Token Generation for REST API Security")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -23,6 +26,7 @@ public class AuthController {
 
     public record LoginRequest(String username, String password) {}
 
+    @Operation(summary = "Authenticate user and issue JWT Bearer Token")
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(

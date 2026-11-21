@@ -13,8 +13,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
+import org.geocyber.domain.AnomalyAlert;
 import org.geocyber.domain.CyberCampaign;
 import org.geocyber.domain.GdeltEvent;
+import org.geocyber.repository.AnomalyAlertRepository;
 import org.geocyber.repository.CyberCampaignRepository;
 import org.geocyber.repository.GdeltEventRepository;
 import org.geocyber.ui.MainLayout;
@@ -28,10 +30,14 @@ public class DashboardView extends VerticalLayout {
 
     private final CyberCampaignRepository campaignRepository;
     private final GdeltEventRepository gdeltRepository;
+    private final AnomalyAlertRepository anomalyAlertRepository;
 
-    public DashboardView(CyberCampaignRepository campaignRepository, GdeltEventRepository gdeltRepository) {
+    public DashboardView(CyberCampaignRepository campaignRepository,
+                         GdeltEventRepository gdeltRepository,
+                         AnomalyAlertRepository anomalyAlertRepository) {
         this.campaignRepository = campaignRepository;
         this.gdeltRepository = gdeltRepository;
+        this.anomalyAlertRepository = anomalyAlertRepository;
 
         setSizeFull();
         setPadding(true);
@@ -41,6 +47,7 @@ public class DashboardView extends VerticalLayout {
         addHeader();
         addKpiCards();
         addThreatMapAndFeed();
+        addAnomalyAlertsSection();
         addActiveCampaignsTable();
     }
 
@@ -210,6 +217,35 @@ public class DashboardView extends VerticalLayout {
 
         layout.add(mapContainer, tickerPanel);
         add(layout);
+    }
+
+    private void addAnomalyAlertsSection() {
+        H3 alertHeading = new H3("REAL-TIME THREAT ANOMALIES & DGA ALERTS (MODULE 6)");
+        alertHeading.getStyle().set("color", "#ff3366").set("font-size", "1.0rem").set("margin", "15px 0 5px 0");
+
+        Grid<AnomalyAlert> alertGrid = new Grid<>(AnomalyAlert.class, false);
+        alertGrid.setItems(anomalyAlertRepository.findByOrderByTimestampDesc());
+        alertGrid.setHeight("200px");
+
+        alertGrid.addComponentColumn(alert -> {
+            Span badge = new Span(alert.getSeverity());
+            badge.getStyle().set("font-weight", "bold").set("padding", "2px 8px").set("border-radius", "4px").set("font-size", "0.75rem");
+            switch (alert.getSeverity().toUpperCase()) {
+                case "CRITICAL" -> badge.getStyle().set("background", "#ff0055").set("color", "#fff");
+                case "HIGH" -> badge.getStyle().set("background", "#ff3366").set("color", "#fff");
+                case "MEDIUM" -> badge.getStyle().set("background", "#ff9900").set("color", "#000");
+                default -> badge.getStyle().set("background", "#38bdf8").set("color", "#000");
+            }
+            return badge;
+        }).setHeader("Severity").setAutoWidth(true);
+
+        alertGrid.addColumn(AnomalyAlert::getAnomalyType).setHeader("Anomaly Type").setAutoWidth(true);
+        alertGrid.addColumn(AnomalyAlert::getSourceEntity).setHeader("Entity / Observable").setAutoWidth(true);
+        alertGrid.addColumn(a -> String.format("%.2f", a.getAnomalyScore())).setHeader("Anomaly Score").setAutoWidth(true);
+        alertGrid.addColumn(AnomalyAlert::getDescription).setHeader("Forensic Description").setFlexGrow(2);
+        alertGrid.addColumn(AnomalyAlert::getRecommendedAction).setHeader("Action").setAutoWidth(true);
+
+        add(alertHeading, alertGrid);
     }
 
     private void addActiveCampaignsTable() {

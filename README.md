@@ -199,6 +199,10 @@ mvn spring-boot:run
 
 Once started, open your browser at **`http://localhost:8080`**.
 
+### Interactive OpenAPI / Swagger Documentation
+- **Swagger UI Console:** `http://localhost:8080/swagger-ui.html`
+- **OpenAPI 3.0 JSON Schema:** `http://localhost:8080/v3/api-docs`
+
 ### Demonstration Credentials
 - **CTI Analyst:** `analyst` / `analyst123`
 - **AI Researcher:** `researcher` / `researcher123`
@@ -263,6 +267,18 @@ curl -X POST http://localhost:8080/api/intelligence/iocs/defang \
 curl -X GET http://localhost:8080/api/attribution/cases/1/report
 ```
 
+### 6. Retrieve Active Anomaly Alerts (Module 6)
+```bash
+curl -X GET http://localhost:8080/api/intelligence/anomalies
+```
+
+### 7. Detect Shannon Entropy on Domain / Implants
+```bash
+curl -X POST http://localhost:8080/api/intelligence/anomalies/detect-entropy \
+  -H "Content-Type: application/json" \
+  -d '{"input": "k9x7qm2v0b8p1lz.top"}'
+```
+
 ---
 
 ## 9. Verification & Test Suite
@@ -274,6 +290,8 @@ mvn test
 ```
 
 Test coverage includes:
+- `AnomalyDetectionServiceTest`: Shannon entropy calculation, high-entropy DGA recognition, unknown threat cluster detection, weekend temporal anomalies.
+- `PresentationGeneratorTest`: 100% Java generation of 15-slide executive widescreen PowerPoint presentation with full speaker notes using Apache POI.
 - `IocNormalizationServiceTest`: Defanging, canonical refanging, regex extraction, type detection.
 - `AptActorServiceTest`: Vendor alias indexing and canonical resolution.
 - `NlpAnalysisServiceTest`: Lexicon conflict tone computation, country NER extraction, dense 64-dim L2 embeddings.

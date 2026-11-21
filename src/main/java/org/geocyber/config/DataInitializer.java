@@ -30,6 +30,7 @@ public class DataInitializer implements CommandLineRunner {
     private final IocRepository iocRepository;
     private final CyberCampaignRepository campaignRepository;
     private final AttributionCaseRepository caseRepository;
+    private final AnomalyAlertRepository anomalyAlertRepository;
     private final PasswordEncoder passwordEncoder;
     private final AptActorService actorService;
     private final BenchmarkService benchmarkService;
@@ -42,6 +43,7 @@ public class DataInitializer implements CommandLineRunner {
                            IocRepository iocRepository,
                            CyberCampaignRepository campaignRepository,
                            AttributionCaseRepository caseRepository,
+                           AnomalyAlertRepository anomalyAlertRepository,
                            PasswordEncoder passwordEncoder,
                            AptActorService actorService,
                            BenchmarkService benchmarkService) {
@@ -53,6 +55,7 @@ public class DataInitializer implements CommandLineRunner {
         this.iocRepository = iocRepository;
         this.campaignRepository = campaignRepository;
         this.caseRepository = caseRepository;
+        this.anomalyAlertRepository = anomalyAlertRepository;
         this.passwordEncoder = passwordEncoder;
         this.actorService = actorService;
         this.benchmarkService = benchmarkService;
@@ -70,6 +73,7 @@ public class DataInitializer implements CommandLineRunner {
         initCyberCampaigns();
         initAttributionCases();
         initIocs();
+        initAnomalyAlerts();
 
         // Warm up and pre-seed benchmark records
         benchmarkService.runComprehensiveBenchmarkSuite();
@@ -267,6 +271,31 @@ public class DataInitializer implements CommandLineRunner {
             );
             iocRepository.saveAll(list);
             log.info("Initialized {} indicators of compromise (IOCs).", list.size());
+        }
+    }
+
+    private void initAnomalyAlerts() {
+        if (anomalyAlertRepository.count() == 0) {
+            List<AnomalyAlert> alerts = List.of(
+                    new AnomalyAlert("ALERT-DGA-7712", LocalDateTime.now().minusHours(2),
+                            "HIGH_SHANNON_ENTROPY_DGA", "HIGH", "k9x7qm2v0b8p1lz.top", 0.88,
+                            "Domain [k9x7qm2v0b8p1lz.top] exhibits abnormally high Shannon entropy (4.18 bits/symbol), characteristic of algorithmic DGA C2 rendezvous.",
+                            "Block domain in perimeter DNS resolvers and query historical sinkhole telemetry."),
+                    new AnomalyAlert("ALERT-UNK-4401", LocalDateTime.now().minusHours(6),
+                            "UNKNOWN_THREAT_CLUSTER", "CRITICAL", "CAMPAIGN-BALTIC-SUBSEA", 0.94,
+                            "High prediction entropy across all known APT classes indicates a novel, uncategorized adversary cluster or complex operational camouflage.",
+                            "Escalate to National Cyber Defense Center for signals intelligence correlation."),
+                    new AnomalyAlert("ALERT-TEMP-9921", LocalDateTime.now().minusDays(1),
+                            "UNUSUAL_WEEKEND_TEMPORAL_SPIKE", "MEDIUM", "INCIDENT-POL-091", 0.72,
+                            "Operation occurred on SUNDAY at 02:40 UTC. Sovereign state bureaucracies maintain strict weekday tempos; weekend operations indicate emergency wiping or non-state proxies.",
+                            "Verify whether exfiltration was automated scheduled cron or live human hands-on-keyboard activity."),
+                    new AnomalyAlert("ALERT-INFRA-3108", LocalDateTime.now().minusHours(12),
+                            "CRITICAL_MALICIOUS_INFRASTRUCTURE", "CRITICAL", "194.26.29.112", 0.98,
+                            "Observable has an acute threat reputation score of 0.98 with verified Sandworm HermeticWiper staging server provenance.",
+                            "Initiate automated host isolation and BGP null-routing immediately.")
+            );
+            anomalyAlertRepository.saveAll(alerts);
+            log.info("Initialized {} threat anomaly alerts.", alerts.size());
         }
     }
 }
