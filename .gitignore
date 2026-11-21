@@ -21,7 +21,10 @@ buildNumber.properties
 # Vaadin frontend auto-generated artifacts
 node_modules/
 node/
+frontend/
 frontend/generated/
+src/main/frontend/
+src/main/resources/META-INF/VAADIN/
 package-lock.json
 vite.generated.ts
 types.d.ts

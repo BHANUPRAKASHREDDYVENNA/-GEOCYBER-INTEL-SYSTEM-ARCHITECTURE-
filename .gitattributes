@@ -1,0 +1,18 @@
+# Git configuration for GeoCyber Intel Platform
+* text=auto
+
+# Enforce 100% Java language detection on GitHub
+*.js linguist-vendored=true
+*.js linguist-detectable=false
+*.ts linguist-vendored=true
+*.ts linguist-detectable=false
+*.tsx linguist-vendored=true
+*.tsx linguist-detectable=false
+*.html linguist-vendored=true
+*.html linguist-detectable=false
+*.css linguist-vendored=true
+*.css linguist-detectable=false
+src/main/frontend/** linguist-vendored=true
+src/main/frontend/** linguist-detectable=false
+src/main/resources/META-INF/** linguist-vendored=true
+src/main/resources/META-INF/** linguist-detectable=false
