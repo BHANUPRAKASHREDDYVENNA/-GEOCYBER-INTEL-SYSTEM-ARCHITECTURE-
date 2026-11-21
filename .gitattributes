@@ -1,18 +1,26 @@
 # Git configuration for GeoCyber Intel Platform
 * text=auto
 
-# Enforce 100% Java language detection on GitHub
-*.js linguist-vendored=true
-*.js linguist-detectable=false
-*.ts linguist-vendored=true
-*.ts linguist-detectable=false
-*.tsx linguist-vendored=true
-*.tsx linguist-detectable=false
-*.html linguist-vendored=true
-*.html linguist-detectable=false
-*.css linguist-vendored=true
-*.css linguist-detectable=false
-src/main/frontend/** linguist-vendored=true
-src/main/frontend/** linguist-detectable=false
-src/main/resources/META-INF/** linguist-vendored=true
-src/main/resources/META-INF/** linguist-detectable=false
+# Enforce 100% Pure Java language detection on GitHub
+* -linguist-detectable
+*.java linguist-detectable
+*.java linguist-language=Java
+
+# Explicit exclusions for any non-Java formats
+*.js linguist-vendored linguist-generated -linguist-detectable
+*.ts linguist-vendored linguist-generated -linguist-detectable
+*.tsx linguist-vendored linguist-generated -linguist-detectable
+*.html linguist-vendored linguist-generated -linguist-detectable
+*.css linguist-vendored linguist-generated -linguist-detectable
+*.json linguist-vendored -linguist-detectable
+*.xml -linguist-detectable
+*.yml -linguist-detectable
+*.yaml -linguist-detectable
+*.sql -linguist-detectable
+*.properties -linguist-detectable
+*.cmd -linguist-detectable
+Dockerfile -linguist-detectable
+docker-compose.yml -linguist-detectable
+mvnw -linguist-detectable
+mvnw.cmd -linguist-detectable
+samples/** linguist-vendored -linguist-detectable

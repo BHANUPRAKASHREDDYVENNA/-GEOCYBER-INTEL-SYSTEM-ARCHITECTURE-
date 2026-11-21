@@ -1,5 +1,6 @@
 # GEOCYBER INTEL: Geopolitical Cyber Threat Intelligence & Multimodal APT Attribution Platform
 
+[![Language](https://img.shields.io/badge/Language-100%25%20Java-orange.svg)](https://github.com/BHANUPRAKASHREDDYVENNA/-GEOCYBER-INTEL-SYSTEM-ARCHITECTURE-)
 [![Java](https://img.shields.io/badge/Java-21%2B-blue.svg)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.4-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Vaadin](https://img.shields.io/badge/Vaadin-24.4.12-blueviolet.svg)](https://vaadin.com/)
@@ -8,6 +9,8 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-lightgrey.svg)](LICENSE)
 
 **GEOCYBER INTEL** is a research-grade, advanced cyber threat intelligence (CTI) and nation-state advanced persistent threat (APT) attribution platform. Built **strictly and 100% in Java**, the system integrates real-time geopolitical conflict dynamics from the **GDELT Project**, threat intelligence reports from **APTnotes**, the **MITRE ATT&CK STIX 2.1 Enterprise Matrix**, and network indicator extraction with a custom **Multimodal Cross-Attention Transformer** architecture implemented on top of the **Efficient Java Matrix Library (EJML)** and **JGraphT**.
+
+> **Note on Architecture:** This platform is authored **100% in pure Java**. All UI views, REST controllers, AI tensors, graph analytics, and persistence logic are executed within the native Java Virtual Machine (JVM). There is **zero JavaScript or TypeScript** source code in this repository.
 
 ---
 
